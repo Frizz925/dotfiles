@@ -21,8 +21,8 @@ let b:vcm_tab_complete='omni'
 let g:ctrlp_working_path_mode=0
 
 if has('gui_macvim')
-	set guifont=Fira\ Code\ Medium:h12
-	set macligatures
+	set guifont=Ubuntu\ Mono\ derivative\ Powerline:h14
+	"set macligatures
 endif
 
 "Pane keymaps
@@ -32,8 +32,9 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 "Buffer keymaps
-nnoremap <C-B><C-N> :bnext<CR>
-nnoremap <C-B><C-P> :bprev<CR>
+nnoremap <C-B><C-N> :BF<CR>
+nnoremap <C-B><C-P> :BB<CR>
+nnoremap <C-B><C-D> :BD<CR>
 
 "Plugin keymaps
 map <C-n> :NERDTreeToggle<CR>
@@ -50,6 +51,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
 Plug 'kien/ctrlp.vim'
 Plug 'ap/vim-buftabline'
+Plug 'qpkorr/vim-bufkill'
 
 if has('nvim')
 	Plug 'neomake/neomake'
@@ -62,6 +64,7 @@ endif
 "Plug 'StanAngeloff/php.vim'
 "Plug 'arnaud-lb/vim-php-namespace'
 "Plug 'shawncplus/phpcomplete.vim'
+Plug 'Valloric/YouCompleteMe'
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug '~/.fzf'
 
