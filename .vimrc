@@ -64,8 +64,8 @@ endif
 "Plug 'StanAngeloff/php.vim'
 "Plug 'arnaud-lb/vim-php-namespace'
 "Plug 'shawncplus/phpcomplete.vim'
-Plug 'Valloric/YouCompleteMe'
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug '~/.fzf'
 
 "Colorthemes
