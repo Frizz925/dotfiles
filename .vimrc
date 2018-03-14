@@ -14,6 +14,7 @@ set lazyredraw
 set smartcase
 set nowrap
 set rtp+=~/.fzf
+set background=dark
 let base16colorspace=256
 
 "Plugin variables
@@ -75,4 +76,4 @@ call plug#end()
 if filereadable(expand("~/.vimrc_background"))
 	source ~/.vimrc_background
 endif
-colorscheme base16-one-light
+colorscheme base16-onedark
