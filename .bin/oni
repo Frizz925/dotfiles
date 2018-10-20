@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/Applications/Oni.app/Contents/MacOS/Oni $@

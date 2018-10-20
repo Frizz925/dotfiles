@@ -1,0 +1,8 @@
+#!/bin/bash
+
+PROXY_SERVER="localhost:8888"
+PROFILE_HASH=$(date +%s | md5)
+USER_DATA_DIR="/tmp/chrome-profile-$PROFILE_HASH"
+CHROME_EXEC="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+"$CHROME_EXEC" --proxy-server=$PROXY_SERVER --user-data-dir=$USER_DATA_DIR 2> /dev/null
+rm -rf $USER_DATA_DIR
