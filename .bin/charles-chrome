@@ -1,8 +1,21 @@
 #!/bin/bash
 
-PROXY_SERVER="localhost:8888"
-PROFILE_HASH=$(date +%s | md5)
-USER_DATA_DIR="/tmp/chrome-profile-$PROFILE_HASH"
-CHROME_EXEC="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-"$CHROME_EXEC" --proxy-server=$PROXY_SERVER --user-data-dir=$USER_DATA_DIR 2> /dev/null
-rm -rf $USER_DATA_DIR
+proxy_server="localhost:8888"
+os=$(uname -s)
+case $os in
+    "Darwin")
+        chrome_exec="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+        profile_hash=$(date +%s | md5)
+        ;;
+    "Linux")
+        chrome_exec=$(which google-chrome)
+        profile_hash=$(date +%s | md5sum)
+        ;;
+    *)
+        echo "Unknown operating system $os" >&2
+        exit 1
+esac
+
+user_data_dir="/tmp/chrome-profile-$profile_hash"
+"$chrome_exec" --proxy-server=$proxy_server --user-data-dir=$user_data_dir 2> /dev/null
+rm -rf $user_data_dir
