@@ -29,7 +29,6 @@ elif [ ! -x "$chrome_exec" ]; then
     exit 1
 fi
 
-chrome_exec=$(readlink -f "$chrome_exec")
 user_data_dir="/tmp/chrome-profile-${profile_hash}"
 log_path="/tmp/chrome-profile-${profile_hash}.log"
 "$chrome_exec" --proxy-server=$proxy_server --user-data-dir=$user_data_dir 2> $log_path
