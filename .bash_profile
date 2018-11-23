@@ -4,8 +4,6 @@ if [ $(uname -s) = 'Darwin' ]; then
 fi
 
 export GOPATH=$HOME/go
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-export ANDROID_HOME=/usr/local/lib/android
 
 export LANGUAGE=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
@@ -15,7 +13,11 @@ export LANG=en_US.UTF-8
 alias cwd='cd $(readlink $(pwd))'
 
 # macOS specific
-export HOMEBREW_NO_AUTO_UPDATE=1
+if [ -n "$IS_OSX" ]; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    export ANDROID_HOME=/usr/local/lib/android
+    export HOMEBREW_NO_AUTO_UPDATE=1
+fi
 
 # Avoid PATH duplicate
 if [ -z "$ORIGINAL_PATH" ]; then
