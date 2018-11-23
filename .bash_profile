@@ -1,4 +1,8 @@
-export PATH=$HOME/.composer/vendor/bin:$HOME/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/opt/openssl/bin:$PATH
+#!/bin/bash
+if [ $(uname -s) = 'Darwin' ]; then
+    export IS_OSX=1
+fi
+
 export GOPATH=$HOME/go
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 export ANDROID_HOME=/usr/local/lib/android
@@ -9,3 +13,27 @@ export LC_TYPE=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 alias cwd='cd $(readlink $(pwd))'
+
+# macOS specific
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# Avoid PATH duplicate
+if [ -z "$ORIGINAL_PATH" ]; then
+    export ORIGINAL_PATH=$PATH
+fi
+export PATH=$ORIGINAL_PATH
+# macOS specific
+if [ -n "$IS_OSX" ]; then
+    export PATH=/usr/local/opt/openssl/bin:$PATH
+fi
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:$PATH
+
+# User specific
+export PATH=$HOME/.composer/vendor/bin:$PATH
+export PATH=$HOME/.bin:$PATH
+# macOS specific
+if [ -n "$IS_OSX" ]; then
+    export PATH=$HOME/Library/Python/3.7/bin:$PATH
+fi
+

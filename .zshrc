@@ -102,7 +102,10 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias sudo='sudo '
 
-# Special settings for touchbars
-if pgrep ControlStrip > /dev/null; then
-    plugins+=(zsh-apple-touchbar)
+# macOS specific
+if [ -n "$IS_OSX" ]; then
+    # Special settings for touchbars
+    if pgrep ControlStrip > /dev/null; then
+        plugins+=(zsh-apple-touchbar)
+    fi
 fi
