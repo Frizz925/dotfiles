@@ -30,6 +30,8 @@ set tabstop=4
 set autoindent
 set background=dark
 set listchars=nbsp:¬,tab:>-,extends:»,precedes:«,space:•,trail:•
+set modeline
+set modelines=5
 "set list
 
 let g:python_host_prog = '/usr/local/bin/python'
