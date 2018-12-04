@@ -1,0 +1,4 @@
+#!/bin/bash
+
+NOW_PLAYING_FORMAT='artist of current track & " [" & album of current track & "] - " & name of current track'
+/bin/bash -c "osascript -e 'tell application \"iTunes\" to if player state is playing then $NOW_PLAYING_FORMAT'"
