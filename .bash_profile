@@ -39,3 +39,9 @@ if [ -n "$IS_OSX" ]; then
     export PATH=$HOME/Library/Python/3.7/bin:$PATH
 fi
 
+# Python stuff
+# Pipenv specific
+if command -v pipenv > /dev/null 2>&1; then
+    eval "$(pipenv --completion)"
+    export PIPENV_VERBOSITY=-1
+fi
