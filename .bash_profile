@@ -27,6 +27,7 @@ export PATH=$ORIGINAL_PATH
 # macOS specific
 if [ -n "$IS_OSX" ]; then
     export PATH=/usr/local/opt/openssl/bin:$PATH
+    export PATH=/usr/local/opt/grep/libexec/gnubin:$PATH
 fi
 # Android stuff
 if [ -d "$ANDROID_HOME" ]; then
