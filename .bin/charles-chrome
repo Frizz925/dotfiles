@@ -31,5 +31,5 @@ fi
 
 user_data_dir="/tmp/chrome-profile-${profile_hash}"
 log_path="/tmp/chrome-profile-${profile_hash}.log"
-"$chrome_exec" $@ --proxy-server=$proxy_server --user-data-dir=$user_data_dir 2> $log_path
+"$chrome_exec" $@ --proxy-server=$proxy_server --user-data-dir=$user_data_dir > $log_path 2>&1
 
