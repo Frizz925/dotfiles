@@ -28,6 +28,11 @@ export PATH=$ORIGINAL_PATH
 if [ -n "$IS_OSX" ]; then
     export PATH=/usr/local/opt/openssl/bin:$PATH
 fi
+# Android stuff
+if [ -d "$ANDROID_HOME" ]; then
+    export PATH=$ANDROID_HOME/tools/bin:$PATH
+    export PATH=$ANDROID_HOME/platform-tools:$PATH
+fi
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
