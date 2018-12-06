@@ -34,6 +34,10 @@ if [ -d "$ANDROID_HOME" ]; then
     export PATH=$ANDROID_HOME/tools/bin:$PATH
     export PATH=$ANDROID_HOME/platform-tools:$PATH
 fi
+# Golang stuff
+if [ -d "$GOPATH" ]; then
+    export PATH=$GOPATH/bin:$PATH
+fi
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
