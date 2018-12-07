@@ -34,6 +34,10 @@ if [ -d "$ANDROID_HOME" ]; then
     export PATH=$ANDROID_HOME/tools/bin:$PATH
     export PATH=$ANDROID_HOME/platform-tools:$PATH
 fi
+# Golang stuff
+if [ -n "$GOPATH" ] && [ -d "$GOPATH" ]; then
+    export PATH=$GOPATH/bin:$PATH
+fi
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
@@ -50,4 +54,5 @@ fi
 if command -v pipenv > /dev/null 2>&1; then
     eval "$(pipenv --completion)"
     export PIPENV_VERBOSITY=-1
+    export PIPENV_VENV_IN_PROJECT=1
 fi
