@@ -30,6 +30,8 @@ set tabstop=4
 set autoindent
 set background=dark
 set listchars=nbsp:¬,tab:>-,extends:»,precedes:«,space:•,trail:•
+set modeline
+set modelines=5
 "set list
 
 let g:python_host_prog = '/usr/local/bin/python'
@@ -46,3 +48,5 @@ colorscheme nord
 
 call neomake#configure#automake('nw', 750)
 
+"Autocmds
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab

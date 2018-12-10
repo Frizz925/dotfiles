@@ -65,7 +65,8 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  zsh-autosuggestions zsh-history-substring-search
+  #zsh-autosuggestions
+  zsh-history-substring-search
   zsh-syntax-highlighting
 )
 
@@ -102,7 +103,10 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias sudo='sudo '
 
-# Special settings for touchbars
-if pgrep ControlStrip > /dev/null; then
-    plugins+=(zsh-apple-touchbar)
+# macOS specific
+if [ -n "$IS_OSX" ]; then
+    # Special settings for touchbars
+    if pgrep ControlStrip > /dev/null; then
+        plugins+=(zsh-apple-touchbar)
+    fi
 fi
