@@ -66,8 +66,10 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
   #zsh-autosuggestions
+  zsh-completions
   zsh-history-substring-search
   zsh-syntax-highlighting
+  zsh-docker
 )
 
 source $ZSH/oh-my-zsh.sh
