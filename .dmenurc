@@ -3,7 +3,7 @@
 #
 
 ## define the font for dmenu to be used
-DMENU_FN="FiraCode-9"
+DMENU_FN="FiraCode-8"
 
 ## background colour for unselected menu-items
 DMENU_NB="#2E3440"
@@ -21,4 +21,4 @@ DMENU_SF="#ECEFF4"
 TERMINAL_CMD="terminal -e"
 
 ## export our variables
-DMENU_OPTIONS="-fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB"
+DMENU_OPTIONS="-fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB -b"
