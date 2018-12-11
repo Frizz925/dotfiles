@@ -1,0 +1,9 @@
+#!/bin/bash
+
+filename=/tmp/screenshot-$(date +%s).png
+scrot $@ $filename
+if [ -f "$filename" ]; then
+    xclip -selection clipboard -t image/png < $filename
+    rm $filename
+fi
+

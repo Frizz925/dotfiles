@@ -34,8 +34,10 @@ set modeline
 set modelines=5
 "set list
 
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+if has('macunix')
+    let g:python_host_prog = '/usr/local/bin/python'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+endif
 let g:phpcd_php_cli_executable = '/usr/local/bin/php'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})

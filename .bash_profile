@@ -2,6 +2,10 @@
 if [ $(uname -s) = 'Darwin' ]; then
     export IS_OSX=1
 fi
+if [ $(uname -s) = 'Linux' ]; then
+    export IS_LINUX=1
+fi
+
 
 export GOPATH=$HOME/go
 
@@ -38,6 +42,10 @@ fi
 if [ -n "$GOPATH" ] && [ -d "$GOPATH" ]; then
     export PATH=$GOPATH/bin:$PATH
 fi
+# Ruby stuff
+export PATH=$HOME/.gem/ruby/2.5.0/bin:$PATH
+export PATH=/usr/lib/ruby/gems/2.5.0/bin:$PATH
+
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
