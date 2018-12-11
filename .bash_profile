@@ -46,6 +46,9 @@ fi
 export PATH=$HOME/.gem/ruby/2.5.0/bin:$PATH
 export PATH=/usr/lib/ruby/gems/2.5.0/bin:$PATH
 
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH=$HOME/.local/bin:$PATH
+fi
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
