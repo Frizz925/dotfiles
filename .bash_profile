@@ -67,3 +67,7 @@ if command -v pipenv > /dev/null 2>&1; then
     export PIPENV_VERBOSITY=-1
     export PIPENV_VENV_IN_PROJECT=1
 fi
+
+if [ -f $HOME/.bash_aliases ]; then
+	source $HOME/.bash_aliases
+fi

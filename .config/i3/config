@@ -18,7 +18,7 @@ set $term alacritty
 smart_gaps on
 smart_borders on
 
-default_border normal 0
+default_border normal 1
 hide_edge_borders smart
 
 exec --no-startup-id nitrogen --restore
