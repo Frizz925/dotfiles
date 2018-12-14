@@ -1,0 +1,34 @@
+[colors]
+background = #222
+foreground = #D3DAE3
+
+[bar/default]
+width = 100%
+height = 18
+modules-left = i3
+modules-right = pulseaudio volume date
+module-margin-left = 2
+module-margin-right = 2
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+padding-left = 3
+padding-right = 3
+
+border-size = 2
+border-color = ${colors.background}
+
+font-0 = sans-serif:pixelsize=10;1
+
+[module/i3]
+type = internal/i3
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+[module/date]
+type = internal/date
+date = %a, %Y-%m-%d %H:%M
+
+# vim: ft=dosini
