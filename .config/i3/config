@@ -72,8 +72,9 @@ bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+m bar mode toggle
 
 bindsym --release Print exec i3-scrot
-bindsym --release Shift+Print exec i3-scrot -w
-bindsym --release Ctrl+Shift+Print exec i3-scrot -s
+bindsym --release Shift+Print exec i3-scrot -s
+bindsym --release Ctrl+Print exec scrot-clip
+bindsym --release Ctrl+Shift+Print exec scrot-clip -s
 
 bindsym $mod+Shift+y border normal 0
 bindsym $mod+Shift+n border none
