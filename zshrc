@@ -2,7 +2,7 @@ if [ -f $HOME/.scripts/antigen.zsh ]; then
     source $HOME/.scripts/antigen.zsh
 fi
 if [ -f $HOME/.scripts/antigen-setup ]; then
-    exec $HOME/.scripts/antigen-setup
+    source $HOME/.scripts/antigen-setup
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -10,7 +10,11 @@ fi
 source $HOME/.bash_profile
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+if [ -d $HOME/.antigen/bundles/robbyrussell/oh-my-zsh ]; then
+    export ZSH=$HOME/.antigen/bundles/robbyrussell/oh-my-zsh
+else
+    export ZSH=$HOME/.oh-my-zsh
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
