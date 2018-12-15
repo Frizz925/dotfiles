@@ -69,7 +69,7 @@ bindsym $mod+F2 exec --no-startup-id rofi -show run
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+m bar mode toggle
 
-bindsym Print exec --no-startup-id scrot-clip -s
+bindsym --release Print exec scrot-clip -s
 
 bindsym $mod+Shift+y border normal 0
 bindsym $mod+Shift+n border none
@@ -138,16 +138,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: www"
-set $ws2 "2: code"
-set $ws3 "3: term"
-set $ws4 "4: chat"
-set $ws5 "5: misc"
-set $ws6 "6: misc"
-set $ws7 "7: misc"
-set $ws8 "8: misc"
-set $ws9 "9: misc"
-set $ws10 "10: misc"
+set $ws1 "1:www"
+set $ws2 "2:code"
+set $ws3 "3:term"
+set $ws4 "4:chat"
+set $ws5 "5:misc"
+set $ws6 "6:misc"
+set $ws7 "7:misc"
+set $ws8 "8:misc"
+set $ws9 "9:misc"
+set $ws10 "10:misc"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -235,8 +235,11 @@ for_window [class="(?i)code"] border none
 bar {
     position top
     i3bar_command i3bar
-    status_command i3status
+    #status_command i3status
+    status_command i3blocks
     font pango:sans-serif 8
+    tray_output none
+    strip_workspace_numbers yes
 
     colors {
         # http://google.com
@@ -247,7 +250,7 @@ bar {
 
         background  $bar_bg
         statusline  $bar_fg
-        separator   $bar_bg
+        separator   $bar_fg_inactive
 
         #class              border          background      text
         focused_workspace   $bar_bg         $bar_bg         $bar_fg

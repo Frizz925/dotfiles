@@ -5,5 +5,6 @@ scrot $@ $filename
 if [ -f "$filename" ]; then
     xclip -selection clipboard -t image/png < $filename
     rm $filename
+    notify-send scrot-clip "Screenshot captured"
 fi
 
