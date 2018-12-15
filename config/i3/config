@@ -23,21 +23,21 @@ hide_edge_borders smart
 
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:sans-serif 10
+font pango:sans-serif 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
 # class                 border  backgr. text    indicator child_border
-client.focused		#f5f6f7 #f5f6f7 #5c616c
+client.focused		    #f5f6f7 #f5f6f7 #5c616c
 client.focused_inactive	#e7e8eb #e7e8eb #5c616c
-client.unfocused	#e7e8eb #e7e8eb #5c616c
-client.background	#e7e8eb
+client.unfocused	    #e7e8eb #e7e8eb #5c616c
+client.background	    #e7e8eb
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -56,13 +56,15 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec $HOME/.config/i3/dmenu-frecency
+bindsym $mod+d exec $HOME/.config/i3/dmenu
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+F2 exec --no-startup-id rofi -show run
 bindsym $mod+Tab exec --no-startup-id rofi -show window
+
+bindsym Print exec --no-startup-id scrot-clip -s
 
 # change focus
 bindsym $mod+j focus left
@@ -151,6 +153,22 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+bindsym $mod+Ctrl+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Ctrl+0 move container to workspace $ws10; workspace $ws10
+
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -187,10 +205,12 @@ bindsym $mod+r mode "resize"
 
 for_window [title="Nitrogen"] floating enable border normal
 for_window [title="Volume Control"] floating enable border normal
+for_window [title="Discord"] floating enable border enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
-	#position top
-        #status_command i3status
-#}
+bar {
+    position top
+    status_command i3status
+    font pango:sans-serif 8
+}

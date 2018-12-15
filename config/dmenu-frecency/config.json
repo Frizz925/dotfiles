@@ -3,7 +3,8 @@
     "dmenu": "dmenu",
     "dmenu-args": [
         "-i",
-	"-fn", "sans-8"
+        "-fn", "sans-8",
+        "-b"
     ],
     "frecency-visits": 10,
     "preselect-last-visit": false,
