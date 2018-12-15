@@ -34,10 +34,10 @@ font pango:sans-serif 8
 #font pango:DejaVu Sans Mono 8
 
 # class                 border  backgr. text    indicator child_border
-client.focused		    #f5f6f7 #f5f6f7 #5c616c
-client.focused_inactive	#e7e8eb #e7e8eb #5c616c
-client.unfocused	    #e7e8eb #e7e8eb #5c616c
-client.background	    #e7e8eb
+client.focused          #e7e8eb #e7e8eb #525d76
+client.focused_inactive #e7e8eb #e7e8eb #a2adc6
+client.unfocused        #e7e8eb #e7e8eb #a2a7c6
+client.background       #e7e8eb
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -213,4 +213,10 @@ bar {
     position top
     status_command i3status
     font pango:sans-serif 8
+
+    colors {
+        #class              border  backgr. text
+        focused_workspace   #2679db #2679db #bac3cf
+        active_workspace    #5294e2 #5294e2 #bac3cf
+    }
 }
