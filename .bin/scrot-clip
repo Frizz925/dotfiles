@@ -1,10 +1,19 @@
 #!/bin/bash
 
+notify() {
+    if command -v notify-send > /dev/null 2>&1; then
+        notify-send scrot-clip "$1"
+    fi
+}
+
 filename=/tmp/screenshot-$(date +%s).png
+if [[ "$@" == *"-s"* ]]; then
+    notify "Select an area to screenshot"
+fi
 scrot $@ $filename
 if [ -f "$filename" ]; then
     xclip -selection clipboard -t image/png < $filename
     rm $filename
-    notify-send scrot-clip "Screenshot captured"
+    notify "Screenshot captured to clipboard"
 fi
 
