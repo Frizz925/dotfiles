@@ -12,6 +12,7 @@
 set $mod Mod1
 set $term alacritty
 set $transparent #00000000
+set $bell play /usr/share/sounds/freedesktop/stereo/bell.oga
 
 #gaps outer 15
 #gaps inner 15
@@ -73,6 +74,17 @@ bindsym Print exec --no-startup-id scrot-clip -s
 bindsym $mod+Shift+y border normal 0
 bindsym $mod+Shift+n border none
 bindsym $mod+Shift+u border pixel 1
+
+# media keys
+bindsym XF86AudioStop exec --no-startup-id mpc stop
+bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+bindsym XF86AudioPause exec --no-startup-id mpc pause
+bindsym XF86AudioNext exec --no-startup-id mpc next
+bindsym XF86AudioPrev exec --no-startup-id mpc prev
+
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 0% && notify-send "Audio muted"
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $bell
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $bell
 
 # change focus
 bindsym $mod+j focus left
