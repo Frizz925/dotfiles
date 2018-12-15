@@ -1,0 +1,5 @@
+#!/bin/bash
+
+TITLE=$(mpc -f "[%name%]|[%title%]|[%filename%]" current)
+ALBUM=$(mpc -f "[%artist%[ - %album]]" current)
+notify-send "$TITLE" "$ALBUM"
