@@ -2,7 +2,7 @@ if [ -f $HOME/.scripts/antigen.zsh ]; then
     source $HOME/.scripts/antigen.zsh
 fi
 if [ -f $HOME/.scripts/antigen-setup ]; then
-    source $HOME/.scripts/antigen-setup
+    $HOME/.scripts/antigen-setup
 fi
 
 # If you come from bash you might have to change your $PATH.
