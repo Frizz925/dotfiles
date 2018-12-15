@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DMENU="/usr/bin/dmenu"
+if [ -f $HOME/.dmenurc ]; then
+    . $HOME/.dmenurc
+else
+    DMENU_OPTIONS="-i"
+fi
+
+$DMENU $DMENU_OPTIONS
+
+# vim: ft=sh
