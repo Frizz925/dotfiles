@@ -11,6 +11,7 @@
 
 set $mod Mod1
 set $term alacritty
+set $transparent #00000000
 
 #gaps outer 15
 #gaps inner 15
@@ -18,11 +19,13 @@ set $term alacritty
 smart_gaps on
 smart_borders on
 
-default_border normal 1
+default_border normal 0
 hide_edge_borders smart
 
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet &
+exec --no-startup-id dunst &
+exec --no-startup-id compton -CGb
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -36,7 +39,7 @@ font pango:sans-serif 8
 # class                 border  backgr. text    indicator child_border
 client.focused          #e7e8eb #e7e8eb #525d76
 client.focused_inactive #e7e8eb #e7e8eb #a2adc6
-client.unfocused        #e7e8eb #e7e8eb #a2a7c6
+client.unfocused        #e7e8eb #e7e8eb #a2adc6
 client.background       #e7e8eb
 
 # Before i3 v4.8, we used to recommend this one as the default:
@@ -63,6 +66,7 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+F2 exec --no-startup-id rofi -show run
 bindsym $mod+Tab exec --no-startup-id rofi -show window
+bindsym $mod+m bar mode toggle
 
 bindsym Print exec --no-startup-id scrot-clip -s
 
@@ -118,16 +122,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "www"
+set $ws2 "code"
+set $ws3 "term"
+set $ws4 "chat"
+set $ws5 "misc: 1"
+set $ws6 "misc: 2"
+set $ws7 "misc: 3"
+set $ws8 "misc: 4"
+set $ws9 "misc: 5"
+set $ws10 "misc: 6"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -203,20 +207,34 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-for_window [title="Nitrogen"] floating enable border normal
-for_window [title="Volume Control"] floating enable border normal
-for_window [title="Discord"] floating enable border enable
+for_window [class="(?i)nitrogen"] floating enable border normal
+for_window [class="(?i)pavucontrol"] floating enable, move position mouse, border none
+for_window [class="(?i)discord"] floating enable, move position center, border none
+for_window [class="(?i)firefox"] border none
+for_window [class="(?i)chrome"] border none
+for_window [class="(?i)code"] border none
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
     position top
+    i3bar_command i3bar
     status_command i3status
     font pango:sans-serif 8
 
     colors {
-        #class              border  backgr. text
-        focused_workspace   #2679db #2679db #bac3cf
-        active_workspace    #5294e2 #5294e2 #bac3cf
+        set $bar_bg #222222
+        set $bar_fg #ffffff
+        set $bar_fg_inactive #ffffff60
+
+        background  $bar_bg
+        statusline  $bar_fg
+        separator   $bar_bg
+
+        #class              border          background      text
+        focused_workspace   $bar_bg         $bar_bg         $bar_fg
+        active_workspace    $bar_bg         $bar_bg         $bar_fg
+        inactive_workspace  $bar_bg         $bar_bg         $bar_fg_inactive
+        urgent_workspace    #2679db         #2679db         $bar_fg
     }
 }
