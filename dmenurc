@@ -1,4 +1,4 @@
 DMENU_FN="sans-8"
-DMENU_OPTIONS="-i -fn $DMENU_FN"
+DMENU_OPTIONS="-i -fn $DMENU_FN -b"
 
 # vim: ft=sh
