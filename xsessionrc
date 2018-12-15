@@ -1,8 +1,0 @@
-if [ -f $HOME/.dmenurc ]; then
-    . $HOME/.dmenurc
-else
-    DMENU_OPTIONS="-i"
-fi
-alias dmenu="dmenu $DMENU_OPTIONS"
-
-# vim: ft=sh
