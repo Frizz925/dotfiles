@@ -1,3 +1,7 @@
+if [ -f $HOME/.scripts/antigen.zsh ] && [ -f $HOME/.scripts/antigen-setup ]; then
+    source $HOME/.scripts/antigen-setup
+fi
+
 # If you come from bash you might have to change your $PATH.
 #export PATH=$HOME/.composer/vendor/bin:$HOME/.bin:/usr/local/bin:$PATH
 source $HOME/.bash_profile
