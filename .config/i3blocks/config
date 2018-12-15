@@ -33,7 +33,7 @@ markup=pango
 # This displays "ARTIST - SONG" if a music is playing.
 # Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
 [mediaplayer]
-instance=spotify
+#instance=spotify
 interval=1
 signal=10
 
