@@ -1,4 +1,4 @@
-from customblocks import NowPlaying, Workspaces, Windows
+from customblocks import NowPlaying, Workspaces, Windows, PulseAudio
 from datetime import datetime
 
 SEPARATOR = '   '
@@ -13,6 +13,7 @@ CENTER_BLOCKS = [
 
 RIGHT_BLOCKS = [
     NowPlaying,
+    PulseAudio,
     lambda: '\uf133  ' + datetime.now().strftime('%a, %Y-%m-%d'),
     lambda: '\uf017  ' + datetime.now().strftime('%H:%M:%S'),
 ]
