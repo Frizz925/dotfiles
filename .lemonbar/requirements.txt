@@ -1,0 +1,5 @@
+enum-compat==0.0.2
+i3ipc==1.6.0
+pulsectl==18.12.2
+pycairo==1.18.0
+PyGObject==3.30.4
