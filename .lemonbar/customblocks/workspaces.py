@@ -1,13 +1,12 @@
-from i3lemonbar import Block, Scheduler
+from i3lemonbar import Block
 from i3lemonbar.containers import inject
 from i3lemonbar.i3wrapper import i3Wrapper
 import i3ipc
 
 
-@inject(Scheduler, i3Wrapper)
+@inject(i3Wrapper)
 class Workspaces(Block):
-    def __init__(self, scheduler: Scheduler, i3_wrapper: i3Wrapper):
-        self.scheduler = scheduler
+    def __init__(self, i3_wrapper: i3Wrapper):
         self.i3_wrapper = i3_wrapper
         self.state = None
         self.last_state = None
@@ -17,12 +16,10 @@ class Workspaces(Block):
 
     def on_focus(self, i3: i3ipc.Connection, e):
         self.state = e.current.name
-        self.scheduler.event.set()
 
     def on_shutdown(self, i3: i3ipc.Connection):
         self.last_state = self.state
         self.state = None
-        self.scheduler.event.set()
 
     def should_update(self):
         return not self.i3_wrapper.connected() or self.state != self.last_state

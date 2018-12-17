@@ -1,12 +1,11 @@
-from i3lemonbar import Block, Scheduler
+from i3lemonbar import Block
 from i3lemonbar.containers import inject
 from i3lemonbar.i3wrapper import i3Wrapper
 
 
-@inject(Scheduler, i3Wrapper)
+@inject(i3Wrapper)
 class Windows(Block):
-    def __init__(self, scheduler: Scheduler, i3_wrapper: i3Wrapper):
-        self.scheduler = scheduler
+    def __init__(self, i3_wrapper: i3Wrapper):
         self.i3_wrapper = i3_wrapper
         self.state = None
         self.last_state = None
@@ -39,9 +38,7 @@ class Windows(Block):
 
     def on_update(self, i3, e):
         self.state = e.container.name
-        self.scheduler.event.set()
 
     def on_shutdown(self, i3):
         self.last_state = self.state
         self.state = None
-        self.scheduler.event.set()

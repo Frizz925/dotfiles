@@ -1,3 +1,4 @@
+from .. import Scheduler
 from threading import Thread
 
 import i3ipc
@@ -5,7 +6,8 @@ import time
 
 
 class i3Wrapper(object):
-    def __init__(self):
+    def __init__(self, scheduler: Scheduler):
+        self.scheduler = scheduler
         self.i3 = None
         self.i3_thread = None
         self.listeners = {
@@ -61,6 +63,7 @@ class i3Wrapper(object):
         def wrapper_listener(*args):
             for listener in self.listeners[name]:
                 listener(*args)
+            self.scheduler.event.set()
         return wrapper_listener
 
     def on_shutdown(self, i3: i3ipc.Connection):

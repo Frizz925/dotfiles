@@ -55,6 +55,7 @@ def default_container() -> Container:
     from .. import Scheduler
     from ..i3wrapper import i3Wrapper
     container = Container()
-    container.bind(Scheduler, Scheduler())
-    container.bind(i3Wrapper, i3Wrapper())
+    scheduler = Scheduler()
+    container.bind(Scheduler, scheduler)
+    container.bind(i3Wrapper, i3Wrapper(scheduler))
     return container
