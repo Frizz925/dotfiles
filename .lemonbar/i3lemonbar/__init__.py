@@ -7,15 +7,21 @@ import sys
 
 
 class Scheduler(object):
-    def __init__(self, left_blocks=[], center_blocks=[], right_blocks=[]):
-        self.left_renderer = self.init_renderer(left_blocks)
-        self.center_renderer = self.init_renderer(center_blocks)
-        self.right_renderer = self.init_renderer(right_blocks)
+    def __init__(
+        self,
+        left_blocks=[],
+        center_blocks=[],
+        right_blocks=[],
+        separator='  '
+    ):
+        self.left_renderer = self.init_renderer(left_blocks, separator)
+        self.center_renderer = self.init_renderer(center_blocks, separator)
+        self.right_renderer = self.init_renderer(right_blocks, separator)
         self.event = Event()
         self.running = False
 
-    def init_renderer(self, blocks: List):
-        return BlockRenderer(self.delegate_blocks(blocks))
+    def init_renderer(self, blocks: List, separator='  '):
+        return BlockRenderer(self.delegate_blocks(blocks), separator)
 
     def delegate_blocks(self, blocks: List):
         return list(map(self.delegate_renderer, blocks))
