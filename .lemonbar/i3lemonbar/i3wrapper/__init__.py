@@ -40,7 +40,7 @@ class i3Wrapper(object):
         if self.i3 is not None:
             self.i3.main_quit()
             if self.i3_thread is not None:
-                self.i3_thread.wait()
+                self.i3_thread.join()
             self.i3 = None
         self.connect()
 
