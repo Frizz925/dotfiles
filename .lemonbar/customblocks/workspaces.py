@@ -6,6 +6,14 @@ import i3ipc
 
 @inject(i3Wrapper)
 class Workspaces(Block):
+    workspace_titles = {
+        '1': '\uf268  web',
+        '2': '\uf121  code',
+        '3': '\uf120  term',
+        '4': '\uf086  chat',
+        '5': '\uf1bc  spotify'
+    }
+
     def __init__(self, i3_wrapper: i3Wrapper):
         self.i3_wrapper = i3_wrapper
         self.state = None
@@ -44,12 +52,17 @@ class Workspaces(Block):
         return None
 
     def format_workspace(self, ws):
+        name = ws.name
         try:
-            idx = ws.name.index(':')
-            name = ws.name[idx+1:]
-            if ws.focused:
-                return '%%{+u}  %s  %%{-u}' % name
-            else:
-                return '  %s  ' % name
+            idx = name.index(':')
+            name = name[idx+1:]
         except ValueError:
-            return '  %s  ' % ws.name
+            pass
+        try:
+            name = self.workspace_titles[name]
+        except KeyError:
+            pass
+        if ws.focused:
+            return '%%{+u}  %s  %%{-u}' % name
+        else:
+            return '  %s  ' % name
