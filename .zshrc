@@ -26,10 +26,3 @@ else
   alias vim=nvim
 fi
 
-# macOS specific
-if [ -n "$IS_OSX" ]; then
-    # Special settings for touchbars
-    if pgrep ControlStrip > /dev/null; then
-        plugins+=(zsh-apple-touchbar)
-    fi
-fi
