@@ -27,8 +27,9 @@ class Block(object):
 
 
 class BlockRenderer(object):
-    def __init__(self, blocks: List):
+    def __init__(self, blocks: List, separator='  '):
         self.blocks = self.delegate_blocks(blocks)
+        self.separator = separator
         self.render_map = {}
 
     def delegate_blocks(self, blocks: List):
@@ -46,7 +47,7 @@ class BlockRenderer(object):
         return separator.join(map(self.render_block, self.blocks))
 
     def render_separator(self) -> str:
-        return '  '
+        return self.separator
 
     def render_block(self, block: Block) -> str:
         if block in self.render_map and not block.should_update():
@@ -96,10 +97,20 @@ class NowPlaying(Block):
         super(Block, self).__init__()
         self.player = None
         self.loop_thread = None
-        self.hook_triggered = False
+
+        self.state = None
+        self.track_url = None
+        self.last_state = None
+        self.last_track_url = None
 
     def should_update(self):
-        return self.player is None or self.hook_triggered
+        if self.player is None:
+            return False
+        if self.state != self.last_state:
+            return True
+        if self.track_url != self.last_track_url:
+            return True
+        return False
 
     def render(self):
         from gi.repository import GLib
@@ -108,12 +119,14 @@ class NowPlaying(Block):
         except GLib.Error:
             return ''
 
-        self.hook_triggered = False
+        self.last_state = self.state
+        self.last_track_url = self.track_url
         return self.render_format(self.player)
 
     def check_init(self):
         if self.player is None:
             self.player = self.init_player()
+            self.state = self.player.props.status
         if self.loop_thread is None:
             self.loop_thread = self.init_loop()
             self.loop_thread.start()
@@ -121,8 +134,10 @@ class NowPlaying(Block):
     def init_player(self):
         from gi.repository import Playerctl
         player = Playerctl.Player()
-        player.on('play', self.trigger_hook)
-        player.on('pause', self.trigger_hook)
+        player.on('play', self.on_state_changed)
+        player.on('pause', self.on_state_changed)
+        player.on('stop', self.on_state_changed)
+        player.on('metadata', self.on_metadata)
         return player
 
     def init_loop(self) -> Thread:
@@ -132,24 +147,41 @@ class NowPlaying(Block):
         thread.daemon = True
         return thread
 
-    def trigger_hook(self, player):
+    def on_state_changed(self, player):
+        self.state = player.props.status
+
+    def on_metadata(self, player, e):
+        if 'xesam:url' in e.keys():
+            self.track_url = e['xesam:url']
+
+    def trigger_hook(self):
         self.hook_triggered = True
 
     def render_format(self, player) -> str:
+        icon = self.get_icon()
         artist = player.get_artist()
         album = player.get_album()
         title = player.get_title()
-        return '\uf001  %s [%s] - %s' % (artist, album, title)
+        return '%s  %s [%s] - %s' % (icon, artist, album, title)
+
+    def get_icon(self) -> str:
+        state = self.state
+        if state == 'Stop':
+            return '\uf28d'
+        if state == 'Paused':
+            return '\uf04c'
+        if state == 'Playing':
+            return '\uf04b'
+        return '\uf001'
 
 
 LEFT_BLOCKS = []
 CENTER_BLOCKS = [
-    NowPlaying
+    NowPlaying,
 ]
 RIGHT_BLOCKS = [
     lambda: '\uf133  ' + datetime.now().strftime('%a, %Y-%m-%d'),
     lambda: '\uf017  ' + datetime.now().strftime('%H:%M:%S'),
-    ' '
 ]
 
 if __name__ == '__main__':
