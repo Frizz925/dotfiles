@@ -6,7 +6,7 @@ cleanup() {
     pkill -9 -f i3-lemonbar > /dev/null 2>&1
     pkill -9 -f lemonbar > /dev/null 2>&1
 }
-trap cleanup EXIT
+trap cleanup INT TERM QUIT EXIT
 
 cd $(dirname $0)
 $COMMAND &
