@@ -57,7 +57,7 @@ class NowPlaying(Block):
     def init_loop(self) -> Thread:
         from gi.repository import GLib
         main = GLib.MainLoop()
-        thread = Thread(target=main.run)
+        thread = Thread(target=main.run, name='Playerctl Thread')
         thread.daemon = True
         return thread
 
