@@ -19,10 +19,15 @@ class Workspaces(Block):
         self.state = None
         self.last_state = None
 
-        self.i3_wrapper.on('workspace::focus', self.on_focus)
+        self.i3_wrapper.on('workspace::init', self.on_state_changed)
+        self.i3_wrapper.on('workspace::focus', self.on_state_changed)
+        self.i3_wrapper.on('workspace::move', self.on_state_changed)
+        self.i3_wrapper.on('workspace::rename', self.on_state_changed)
+        self.i3_wrapper.on('workspace::reload', self.on_state_changed)
+        self.i3_wrapper.on('workspace::urgent', self.on_state_changed)
         self.i3_wrapper.on('ipc_shutdown', self.on_shutdown)
 
-    def on_focus(self, i3: i3ipc.Connection, e):
+    def on_state_changed(self, i3: i3ipc.Connection, e):
         self.state = e.current.name
 
     def on_shutdown(self, i3: i3ipc.Connection):
@@ -64,5 +69,7 @@ class Workspaces(Block):
             pass
         if ws.focused:
             return '%%{+u}  %s  %%{-u}' % name
+        elif ws.urgent:
+            return '%%{+u}%%{R}  %s  %%{R}%%{-u}' % name
         else:
             return '  %s  ' % name
