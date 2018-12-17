@@ -26,7 +26,7 @@ class Scheduler(object):
             renderer = renderer(self)
         if isinstance(renderer, Block):
             return renderer
-        return Block(renderer)
+        return Block(self, renderer=renderer)
 
     def start(self):
         self.running = True
@@ -43,6 +43,7 @@ class Scheduler(object):
 
     def sleep(self):
         self.event.wait(1)
+        self.event.clear()
 
 
 __all__ = ['Block', 'BlockRenderer']
