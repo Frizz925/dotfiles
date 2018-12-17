@@ -5,4 +5,4 @@ if command -v trash > /dev/null 2>&1; then
 fi
 # Sudo env hack
 alias sudo="nocorrect sudo"
-alias spotify="echo \"$(playerctl metadata artist) [$(playerctl metadata album)] - $(playerctl metadata title)\""
+alias np="echo \"$(playerctl metadata artist) [$(playerctl metadata album)] - $(playerctl metadata title)\""
