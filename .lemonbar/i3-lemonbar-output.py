@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
-from i3lemonbar import Scheduler
-from customblocks import NowPlaying, Workspaces, Windows
-from datetime import datetime
+from i3lemonbar import BlocksConverter, BarRenderer, Scheduler
+from i3lemonbar.containers import default_container
 
-LEFT_BLOCKS = [
-    Workspaces,
-]
-CENTER_BLOCKS = [
-    Windows,
-]
-RIGHT_BLOCKS = [
-    NowPlaying,
-    lambda: '\uf133  ' + datetime.now().strftime('%a, %Y-%m-%d'),
-    lambda: '\uf017  ' + datetime.now().strftime('%H:%M:%S'),
-]
-SEPARATOR = '   '
+CONFIG_MODULE = 'i3-lemonbar-config'
+
+
+def main():
+    config = __import__(CONFIG_MODULE)
+    container = default_container()
+    converter = BlocksConverter(container, config.SEPARATOR)
+    bar_renderer = BarRenderer(
+        converter.to_renderer(config.LEFT_BLOCKS),
+        converter.to_renderer(config.CENTER_BLOCKS),
+        converter.to_renderer(config.RIGHT_BLOCKS),
+    )
+    container.resolve(Scheduler).start(bar_renderer)
+
 
 if __name__ == '__main__':
-    Scheduler(LEFT_BLOCKS, CENTER_BLOCKS, RIGHT_BLOCKS, SEPARATOR).start()
+    main()

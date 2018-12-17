@@ -1,12 +1,13 @@
 from i3lemonbar import Block, Scheduler
+from i3lemonbar.containers import inject
 from threading import Thread
 
 import i3ipc
 
 
+@inject(Scheduler)
 class Windows(Block):
     def __init__(self, scheduler: Scheduler):
-        super(Windows, self).__init__(scheduler)
         self.i3 = None
         self.state = None
         self.last_state = None

@@ -1,13 +1,14 @@
 from i3lemonbar import Block, Scheduler
+from i3lemonbar.containers import inject
 from threading import Thread
 
 import gi
 gi.require_version('Playerctl', '1.0')
 
 
+@inject(Scheduler)
 class NowPlaying(Block):
     def __init__(self, scheduler: Scheduler):
-        super(NowPlaying, self).__init__(scheduler)
         self.player = None
         self.loop_thread = None
 

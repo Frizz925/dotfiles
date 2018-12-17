@@ -1,4 +1,6 @@
-from .blocks import Block, BlockRenderer
+from .blocks import Block
+from .renderers import BarRenderer, BlocksRenderer
+from .containers import Container
 from inspect import isclass
 from threading import Event
 from typing import List
@@ -7,43 +9,18 @@ import sys
 
 
 class Scheduler(object):
-    def __init__(
-        self,
-        left_blocks=[],
-        center_blocks=[],
-        right_blocks=[],
-        separator='  '
-    ):
-        self.left_renderer = self.init_renderer(left_blocks, separator)
-        self.center_renderer = self.init_renderer(center_blocks, separator)
-        self.right_renderer = self.init_renderer(right_blocks, separator)
+    def __init__(self):
         self.event = Event()
         self.running = False
 
-    def init_renderer(self, blocks: List, separator='  '):
-        return BlockRenderer(self.delegate_blocks(blocks), separator)
-
-    def delegate_blocks(self, blocks: List):
-        return list(map(self.delegate_renderer, blocks))
-
-    def delegate_renderer(self, renderer):
-        if isclass(renderer):
-            # TODO: Create lightweight dependency injection
-            renderer = renderer(self)
-        if isinstance(renderer, Block):
-            return renderer
-        return Block(self, renderer=renderer)
-
-    def start(self):
+    def start(self, bar_renderer: BarRenderer):
         self.running = True
         while self.running:
-            self.run()
+            self.run(bar_renderer)
             self.sleep()
 
-    def run(self):
-        sys.stdout.write('%%{l} %s %%{l}' % self.left_renderer.render())
-        sys.stdout.write('%%{c} %s %%{c}' % self.center_renderer.render())
-        sys.stdout.write('%%{r} %s %%{r}' % self.right_renderer.render())
+    def run(self, bar_renderer: BarRenderer):
+        sys.stdout.write(bar_renderer.render())
         sys.stdout.write('\n')
         sys.stdout.flush()
 
@@ -52,4 +29,32 @@ class Scheduler(object):
         self.event.clear()
 
 
-__all__ = ['Block', 'BlockRenderer']
+class BlocksConverter(object):
+    def __init__(self, container: Container, separator='  '):
+        self.container = container
+        self.separator = separator
+
+    def to_renderer(self, blocks: List) -> BlocksRenderer:
+        blocks = self.delegate_blocks(blocks)
+        return BlocksRenderer(blocks, self.separator)
+
+    def delegate_blocks(self, blocks: List) -> List[Block]:
+        return [self.delegate_block(block) for block in blocks]
+
+    def delegate_block(self, block) -> Block:
+        if isclass(block):
+            if hasattr(block, '__injected__'):
+                block = block(self.container)
+            else:
+                block = block()
+        if callable(block):
+            return Block(renderer=block)
+        if isinstance(block, Block):
+            return block
+        raise TypeError('Unknown block type %s' % type(block))
+
+
+__all__ = [
+    'Block', 'BlocksRenderer', 'BarRenderer', 'Scheduler',
+    'delegate_blocks', 'delegate_block'
+]
