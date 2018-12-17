@@ -1,5 +1,7 @@
 alias cp="cp -i"
 alias mv="mv -i"
-alias rm="trash"
+if command -v trash > /dev/null 2>&1; then
+    alias rm="trash"
+fi
 # Sudo env hack
-alias sudo="sudo "
+alias sudo="nocorrect sudo"
