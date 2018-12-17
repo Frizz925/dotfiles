@@ -80,10 +80,11 @@ class NowPlaying(Block):
 
     def render_format(self, player) -> str:
         icon = self.get_icon()
-        artist = player.get_artist()
-        album = player.get_album()
+        # artist = player.get_artist()
+        # album = player.get_album()
         title = player.get_title()
-        return '%s  %s [%s] - %s' % (icon, artist, album, title)
+        # return '%s  %s [%s] - %s' % (icon, artist, album, title)
+        return '%s  %s' % (icon, title)
 
     def get_icon(self) -> str:
         state = self.state
