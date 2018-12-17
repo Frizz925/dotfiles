@@ -53,6 +53,8 @@ def resolve_dependencies(container: Container, reqs=(), kwreqs={}) -> tuple:
 
 def default_container() -> Container:
     from .. import Scheduler
+    from ..i3wrapper import i3Wrapper
     container = Container()
     container.bind(Scheduler, Scheduler())
+    container.bind(i3Wrapper, i3Wrapper())
     return container

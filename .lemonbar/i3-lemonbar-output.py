@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from i3lemonbar import BlocksConverter, BarRenderer, Scheduler
 from i3lemonbar.containers import default_container
+from i3lemonbar.i3wrapper import i3Wrapper
 
 CONFIG_MODULE = 'i3-lemonbar-config'
 
@@ -14,6 +15,7 @@ def main():
         converter.to_renderer(config.CENTER_BLOCKS),
         converter.to_renderer(config.RIGHT_BLOCKS),
     )
+    container.resolve(i3Wrapper).connect()
     container.resolve(Scheduler).start(bar_renderer)
 
 

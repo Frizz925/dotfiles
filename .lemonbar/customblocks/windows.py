@@ -1,27 +1,32 @@
 from i3lemonbar import Block, Scheduler
 from i3lemonbar.containers import inject
-from threading import Thread
-
-import i3ipc
+from i3lemonbar.i3wrapper import i3Wrapper
 
 
-@inject(Scheduler)
+@inject(Scheduler, i3Wrapper)
 class Windows(Block):
-    def __init__(self, scheduler: Scheduler):
-        self.i3 = None
+    def __init__(self, scheduler: Scheduler, i3_wrapper: i3Wrapper):
+        self.scheduler = scheduler
+        self.i3_wrapper = i3_wrapper
         self.state = None
         self.last_state = None
 
+        self.i3_wrapper.on('window::new', self.on_update)
+        self.i3_wrapper.on('window::close', self.on_update)
+        self.i3_wrapper.on('window::focus', self.on_update)
+        self.i3_wrapper.on('window::title', self.on_update)
+        self.i3_wrapper.on('ipc_shutdown', self.on_shutdown)
+
     def should_update(self) -> bool:
-        return self.i3 is None or self.state != self.last_state
+        return not self.i3_wrapper.connected() or self.state != self.last_state
 
     def render(self) -> str:
-        self.check_init()
-        if self.i3 is None:
+        if not self.i3_wrapper.connected():
             return ''
         self.last_state = self.state
         if self.state is None:
-            focused = self.i3.get_tree().find_focused()
+            i3 = self.i3_wrapper.i3
+            focused = i3.get_tree().find_focused()
             self.state = focused.name
         return self.format(self.state)
 
@@ -32,23 +37,11 @@ class Windows(Block):
         if self.i3 is None:
             self.i3 = self.init_i3()
 
-    def init_i3(self) -> i3ipc.Connection:
-        try:
-            i3 = i3ipc.Connection()
-            i3.on('window::focus', self.on_focus)
-            i3.on('ipc_shutdown', self.on_shutdown)
-
-            thread = Thread(target=i3.main, name='Windows i3 Thread')
-            thread.daemon = True
-            thread.start()
-            return i3
-        except FileNotFoundError:
-            return None
-
-    def on_focus(self, i3, e):
+    def on_update(self, i3, e):
         self.state = e.container.name
+        self.scheduler.event.set()
 
     def on_shutdown(self, i3):
-        self.i3 = None
         self.last_state = self.state
         self.state = None
+        self.scheduler.event.set()
