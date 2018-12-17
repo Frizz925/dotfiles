@@ -9,6 +9,7 @@ gi.require_version('Playerctl', '1.0')
 @inject(Scheduler)
 class NowPlaying(Block):
     def __init__(self, scheduler: Scheduler):
+        self.scheduler = scheduler
         self.player = None
         self.loop_thread = None
 
