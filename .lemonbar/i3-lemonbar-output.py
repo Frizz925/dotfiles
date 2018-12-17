@@ -105,7 +105,7 @@ class NowPlaying(Block):
 
     def should_update(self):
         if self.player is None:
-            return False
+            return True
         if self.state != self.last_state:
             return True
         if self.track_url != self.last_track_url:
@@ -137,6 +137,7 @@ class NowPlaying(Block):
         player.on('play', self.on_state_changed)
         player.on('pause', self.on_state_changed)
         player.on('stop', self.on_state_changed)
+        player.on('exit', self.on_exit)
         player.on('metadata', self.on_metadata)
         return player
 
@@ -149,6 +150,10 @@ class NowPlaying(Block):
 
     def on_state_changed(self, player):
         self.state = player.props.status
+
+    def on_exit(self, player):
+        self.player = None
+        self.state = None
 
     def on_metadata(self, player, e):
         if 'xesam:url' in e.keys():
