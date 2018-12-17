@@ -24,7 +24,7 @@ class Workspaces(Block):
 
     def update_state(self, i3: i3ipc.Connection, e):
         self.state = e.current.name
-        self.scheduler.set()
+        self.scheduler.event.set()
 
     def get_focused_workspace(self):
         for ws in self.i3.get_workspaces():

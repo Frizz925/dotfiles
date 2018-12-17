@@ -63,6 +63,7 @@ class NowPlaying(Block):
 
     def on_state_changed(self, player):
         self.state = player.props.status
+        self.scheduler.event.set()
 
     def on_exit(self, player):
         self.player = None
