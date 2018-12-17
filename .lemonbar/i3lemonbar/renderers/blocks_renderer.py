@@ -22,7 +22,7 @@ class BlocksRenderer(Renderer):
             return self.render_map[block]
         rendered = block.render()
         self.render_map[block] = rendered
-        return rendered
+        return rendered or ''
 
     def block_to_str(self, block) -> str:
         if isclass(block):
