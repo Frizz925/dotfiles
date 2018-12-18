@@ -68,7 +68,9 @@ plugins=(
   #zsh-autosuggestions
   zsh-history-substring-search
   zsh-syntax-highlighting
+  zsh-completions
 )
+autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
 
