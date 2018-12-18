@@ -2,12 +2,12 @@
 
 PWD=$(dirname $0)
 
-GEOMETRY="x24"
+GEOMETRY="x32"
 UNDERLINE_WIDTH=3
 
-FONT="Roboto-8"
-FONT_ICON="FontAwesome-9"
-FONT_UNICODE="SourceHanSans-8"
+FONT="Roboto-10"
+FONT_ICON="FontAwesome-11"
+FONT_UNICODE="SourceHanSans-10"
 
 FOREGROUND="#D8DEE9"
 BACKGROUND="#2E3440"
