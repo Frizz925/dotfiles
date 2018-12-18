@@ -11,7 +11,12 @@ class Workspaces(Block):
         '2': '\uf121  code',
         '3': '\uf120  term',
         '4': '\uf086  chat',
-        '5': '\uf1bc  spotify'
+        '5': '\uf1bc  spotify',
+        '6': '\uf2d0  misc',
+        '7': '\uf2d0  misc',
+        '8': '\uf2d0  misc',
+        '9': '\uf2d0  misc',
+        '10': '\uf2d0  misc',
     }
 
     def __init__(self, i3_wrapper: i3Wrapper):
