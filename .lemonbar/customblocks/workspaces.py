@@ -33,6 +33,8 @@ class Workspaces(Block):
         self.i3_wrapper.on('ipc_shutdown', self.on_shutdown)
 
     def on_state_changed(self, i3: i3ipc.Connection, e):
+        if e.current is None:
+            return
         self.state = e.current.name
 
     def on_shutdown(self, i3: i3ipc.Connection):
