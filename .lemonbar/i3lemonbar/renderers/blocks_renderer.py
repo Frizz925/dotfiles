@@ -20,9 +20,9 @@ class BlocksRenderer(Renderer):
     def render_block(self, block: Block) -> str:
         if block in self.render_map and not block.should_update():
             return self.render_map[block]
-        rendered = block.render()
+        rendered = block.render() or ''
         self.render_map[block] = rendered
-        return rendered or ''
+        return rendered
 
     def block_to_str(self, block) -> str:
         if isclass(block):
