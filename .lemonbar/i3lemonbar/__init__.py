@@ -20,7 +20,11 @@ class Scheduler(object):
             self.sleep()
 
     def run(self, bar_renderer: BarRenderer):
-        sys.stdout.write(bar_renderer.render())
+        try:
+            sys.stdout.write(bar_renderer.render())
+        except Exception as e:
+            sys.stderr.write(str(e))
+            sys.stderr.flush()
         sys.stdout.write('\n')
         sys.stdout.flush()
 
