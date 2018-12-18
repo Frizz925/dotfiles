@@ -2,16 +2,21 @@
 
 PWD=$(dirname $0)
 
-GEOMETRY="x32"
+GEOMETRY="x24"
 UNDERLINE_WIDTH=3
 
-FONT="Roboto-10"
-FONT_ICON="FontAwesome-11"
-FONT_UNICODE="SourceHanSans-10"
+FONT="Roboto-8"
+FONT_ICON="FontAwesome-9"
+FONT_UNICODE="SourceHanSans-8"
+FONT_EMOJI="NotoColorEmoji-8"
+
 
 FOREGROUND="#D8DEE9"
 BACKGROUND="#2E3440"
 UNDERLINE="#D8DEE9"
 
 cd $(dirname $0)
-./i3-lemonbar-output.py | lemonbar -p -g "$GEOMETRY" -f "$FONT" -f "$FONT_ICON" -f "$FONT_UNICODE" -F "$FOREGROUND" -B "$BACKGROUND" -U "$UNDERLINE" -u $UNDERLINE_WIDTH
+./i3-lemonbar-output.py | lemonbar -p -g "$GEOMETRY" \
+    -f "$FONT" -f "$FONT_ICON" -f "$FONT_UNICODE" -f "$FONT_EMOJI" \
+    -F "$FOREGROUND" -B "$BACKGROUND" \
+    -U "$UNDERLINE" -u $UNDERLINE_WIDTH
