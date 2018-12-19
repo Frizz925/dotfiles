@@ -21,8 +21,8 @@ class Workspaces(Block):
 
     def __init__(self, i3_wrapper: i3Wrapper):
         self.i3_wrapper = i3_wrapper
-        self.state = None
-        self.last_state = None
+        self.last_event = None
+        self.ws_curr = None
 
         self.i3_wrapper.on('workspace::init', self.on_state_changed)
         self.i3_wrapper.on('workspace::focus', self.on_state_changed)
@@ -33,35 +33,45 @@ class Workspaces(Block):
         self.i3_wrapper.on('ipc_shutdown', self.on_shutdown)
 
     def on_state_changed(self, i3: i3ipc.Connection, e):
-        if e.current is None:
-            return
-        self.state = e.current.name
+        self.last_event = e.change
+        if e.current is not None:
+            self.ws_curr = e.current
 
     def on_shutdown(self, i3: i3ipc.Connection):
         self.last_state = self.state
         self.state = None
 
     def should_update(self):
-        return not self.i3_wrapper.connected() or self.state != self.last_state
+        # Keep checking for update if ipc is not connected
+        # or a new current workspace is set from an event listener
+        return not self.i3_wrapper.connected() or self.ws_curr is not None
 
     def render(self):
         if not self.i3_wrapper.connected():
             return ''
-        self.last_state = self.state
-        if self.state is None:
-            self.state = self.get_focused_workspace()
-        i3 = self.i3_wrapper.i3
-        workspaces = i3.get_workspaces()
+        workspaces = {}
+        workspaces = self.map_current_ws(workspaces)
+        workspaces = self.map_workspaces(workspaces)
+        workspaces = self.sort_workspaces(workspaces)
         return '  '.join(map(self.format_workspace, workspaces))
 
-    def get_focused_workspace(self):
-        if not self.i3_wrapper.connected():
-            return None
+    def map_current_ws(self, workspaces):
+        if self.ws_curr is not None:
+            ws = self.ws_curr
+            workspaces[ws.num] = ws
+            self.ws_curr = None
+        return workspaces
+
+    def map_workspaces(self, workspaces):
         i3 = self.i3_wrapper.i3
         for ws in i3.get_workspaces():
-            if ws.focused:
-                return ws.name
-        return None
+            workspaces[ws.num] = ws
+        return workspaces
+
+    def sort_workspaces(self, workspaces):
+        workspaces = sorted(workspaces.items(), key=lambda x: x[0])
+        workspaces = list(map(lambda x: x[1], workspaces))
+        return workspaces
 
     def format_workspace(self, ws):
         name = ws.name
