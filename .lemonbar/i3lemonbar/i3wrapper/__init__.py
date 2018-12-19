@@ -19,7 +19,7 @@ class i3Wrapper(object):
             self.listeners[name] = []
             # Probably not registered during init
             if self.i3 is not None:
-                self.i3.on(name, self._trigger_listeners)
+                self.i3.on(name, self._trigger_listeners(name))
         self.listeners[name].append(listener)
 
     def connected(self) -> bool:
@@ -47,7 +47,7 @@ class i3Wrapper(object):
     def init_i3(self) -> i3ipc.Connection:
         i3 = i3ipc.Connection()
         for name in self.listeners.keys():
-            i3.on(name, self.trigger_listeners(name))
+            i3.on(name, self._trigger_listeners(name))
         return i3
 
     def init_i3_thread(self, i3: i3ipc.Connection):
