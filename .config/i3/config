@@ -239,7 +239,7 @@ bindsym $mod+r mode "resize"
 
 for_window [class="(?i)nitrogen"] floating enable border normal
 for_window [class="(?i)pavucontrol"] floating enable, move position mouse, border none
-for_window [class="(?i)discord"] floating enable, move position center, border none
+#for_window [class="(?i)discord"] floating enable, move position center, border none
 for_window [class="(?i)firefox"] border none
 for_window [class="(?i)chrome"] border none
 for_window [class="(?i)code"] border none
