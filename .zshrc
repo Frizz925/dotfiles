@@ -10,7 +10,7 @@ fi
 export ZSH=$HOME/.oh-my-zsh
 
 if [[ -n $SSH_CONNECTION ]]; then
-    ZSH_THEME='fishy'
+    ZSH_THEME='cypher'
     export EDITOR='vim'
 else
     ZSH_THEME='robbyrussell'
