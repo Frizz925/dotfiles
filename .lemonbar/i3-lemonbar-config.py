@@ -1,4 +1,5 @@
-from customblocks import NowPlaying, Workspaces, Windows, PulseAudio, Battery
+from customblocks import NowPlaying, Workspaces, Windows, \
+    PulseAudio, Battery, Bindings
 from datetime import datetime
 
 BAR_HEIGHT = 22
@@ -20,6 +21,7 @@ SEPARATOR = '   '
 
 LEFT_BLOCKS = [
     Workspaces,
+    Bindings,
 ]
 
 CENTER_BLOCKS = [
