@@ -13,7 +13,7 @@ case $os in
         profile_hash=$(date +%s | md5)
         ;;
     "Linux")
-        chrome_exec=$(which google-chrome)
+        chrome_exec="google-chrome"
         profile_hash=$(date +%s | md5sum | awk '{ print $1 }')
         ;;
     *)
