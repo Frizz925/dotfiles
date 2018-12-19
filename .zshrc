@@ -27,6 +27,6 @@ if check_command antibody && [ -f $HOME/.zsh_plugins.txt ]; then
     fi
 fi
 
-plugins=(git heroku pip docker composer virtualenv node)
+plugins=(git heroku pip docker composer virtualenv node npm yarn archlinux)
 source $ZSH/oh-my-zsh.sh
 
