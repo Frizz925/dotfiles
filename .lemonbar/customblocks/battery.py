@@ -2,7 +2,6 @@ from i3lemonbar import Block, Scheduler
 from i3lemonbar.containers import inject
 
 import codecs
-import time
 import subprocess
 
 
@@ -30,26 +29,32 @@ class Battery(Block):
     def __init__(self, scheduler: Scheduler):
         self.scheduler = scheduler
         self.acpi_exists = True
+        self.battery_exists = True
 
     def should_update(self):
-        # only update every 60 seconds
-        return self.acpi_exists and round(time.time()) % 60 == 0
+        return self.acpi_exists and self.battery_exists
 
     def render(self):
-        acpi = None
         try:
-            acpi = subprocess.Popen(
-                ['acpi', 'battery'],
-                stdout=subprocess.PIPE,
-                stderr=self.scheduler.stderr,
-            )
+            subprocess.Popen('acpi')
         except FileNotFoundError:
             self.acpi_exists = False
             return ''
 
-        res = acpi.communicate()[0]
+        acpi = subprocess.Popen(
+            ['acpi', 'battery'],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+
+        res, err = acpi.communicate()
+        # TODO: Determine what the error is
+        if len(err) > 0:
+            self.battery_exists = False
+            return ''
         if len(res) <= 0:
             return ''
+
         res_text = codecs.decode(res, 'utf-8')
         battery = BatteryInfo(res_text)
 
