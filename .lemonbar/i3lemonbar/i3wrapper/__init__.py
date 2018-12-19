@@ -11,7 +11,7 @@ class i3Wrapper(object):
         self.i3 = None
         self.i3_thread = None
         self.listeners = {
-            'ipc_shutdown': [self.on_shutdown]
+            'ipc_shutdown': [self._on_shutdown]
         }
 
     def on(self, name, listener):
@@ -19,7 +19,7 @@ class i3Wrapper(object):
             self.listeners[name] = []
             # Probably not registered during init
             if self.i3 is not None:
-                self.i3.on(name, self.trigger_listeners)
+                self.i3.on(name, self._trigger_listeners)
         self.listeners[name].append(listener)
 
     def connected(self) -> bool:
@@ -56,7 +56,7 @@ class i3Wrapper(object):
         thread.start()
         return thread
 
-    def trigger_listeners(self, name):
+    def _trigger_listeners(self, name):
         if name not in self.listeners:
             return
 
@@ -66,5 +66,5 @@ class i3Wrapper(object):
             self.scheduler.event.set()
         return wrapper_listener
 
-    def on_shutdown(self, i3: i3ipc.Connection):
+    def _on_shutdown(self, i3: i3ipc.Connection):
         self.reconnect()
