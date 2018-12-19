@@ -1,6 +1,7 @@
 from i3lemonbar import Block, Scheduler
 from i3lemonbar.containers import inject
 
+import codecs
 import time
 import subprocess
 
@@ -49,7 +50,8 @@ class Battery(Block):
         res = acpi.communicate()[0]
         if len(res) <= 0:
             return ''
-        battery = BatteryInfo(str(res))
+        res_text = codecs.decode(res, 'utf-8')
+        battery = BatteryInfo(res_text)
 
         icon = '\uf244'
         if battery.status == 'Charging':
