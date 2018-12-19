@@ -1,8 +1,8 @@
-from customblocks import NowPlaying, Workspaces, Windows, PulseAudio
+from customblocks import NowPlaying, Workspaces, Windows, PulseAudio, Battery
 from datetime import datetime
 
 BAR_HEIGHT = 22
-UNDERLINE_HEIGHT = 3
+UNDERLINE_HEIGHT = 2
 
 FONT_SIZE = 8
 FONT_ICON_SIZE = 9
@@ -29,6 +29,7 @@ CENTER_BLOCKS = [
 RIGHT_BLOCKS = [
     NowPlaying,
     PulseAudio,
+    Battery,
     lambda: '\uf133  ' + datetime.now().strftime('%a, %Y-%m-%d'),
     lambda: '\uf017  ' + datetime.now().strftime('%H:%M:%S'),
 ]
