@@ -26,18 +26,21 @@ class Windows(Block):
         if self.state is None:
             i3 = self.i3_wrapper.i3
             focused = i3.get_tree().find_focused()
-            self.state = focused.name
+            self.state = focused
         return self.format(self.state)
 
-    def format(self, text: str) -> str:
-        return text
+    def format(self, con) -> str:
+        return con.name
 
     def check_init(self):
         if self.i3 is None:
             self.i3 = self.init_i3()
 
     def on_update(self, i3, e):
-        self.state = e.container.name
+        if e.change == 'close':
+            self.state = None
+        else:
+            self.state = e.container
 
     def on_shutdown(self, i3):
         self.last_state = self.state
