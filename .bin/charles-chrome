@@ -16,7 +16,7 @@ case $os in
         exists = [ -f $chrome_exec ]
         ;;
     "Linux")
-        chrome_exec=$(command -v google-chrome)
+        chrome_exec="google-chrome"
         profile_hash=$(date +%s | md5sum | awk '{ print $1 }')
         ;;
     *)
@@ -24,14 +24,8 @@ case $os in
         exit 1
 esac
 
-if [ -z "$chrome_exec" ]; then
-    echo_error "No executable Google Chrome found"
-    exit 1
-elif [ ! -e "$chrome_exec" ]; then
-    echo_error "$chrome_exec doesn't exist"
-    exit 1
-elif [ ! -x "$chrome_exec" ]; then
-    echo_error "$chrome_exec is not executable"
+if ! command -v "$chrome_exec" > /dev/null 2>&1; then
+    echo_error "No Chrome executable found"
     exit 1
 fi
 
