@@ -1,6 +1,7 @@
 from inspect import isclass
 from typing import Callable
 import functools
+import sys
 
 
 class Container(object):
@@ -51,11 +52,11 @@ def resolve_dependencies(container: Container, reqs=(), kwreqs={}) -> tuple:
     return (deps, kwdeps)
 
 
-def default_container() -> Container:
+def default_container(stdout=sys.stdout, stderr=sys.stderr) -> Container:
     from .. import Scheduler
     from ..i3wrapper import i3Wrapper
     container = Container()
-    scheduler = Scheduler()
+    scheduler = Scheduler(stdout=stdout, stderr=stderr)
     container.bind(Scheduler, scheduler)
     container.bind(i3Wrapper, i3Wrapper(scheduler))
     return container

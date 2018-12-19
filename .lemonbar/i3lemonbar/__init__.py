@@ -9,9 +9,11 @@ import sys
 
 
 class Scheduler(object):
-    def __init__(self):
+    def __init__(self, stdout=sys.stdout, stderr=sys.stderr):
         self.event = Event()
         self.running = False
+        self.stdout = stdout
+        self.stderr = stderr
 
     def start(self, bar_renderer: BarRenderer):
         self.running = True
@@ -21,12 +23,12 @@ class Scheduler(object):
 
     def run(self, bar_renderer: BarRenderer):
         try:
-            sys.stdout.write(bar_renderer.render())
+            self.stdout.write(bar_renderer.render())
         except Exception as e:
-            sys.stderr.write(str(e))
-            sys.stderr.flush()
-        sys.stdout.write('\n')
-        sys.stdout.flush()
+            self.stderr.write(str(e))
+            self.stderr.flush()
+        self.stdout.write('\n')
+        self.stdout.flush()
 
     def sleep(self):
         self.event.wait(1)
