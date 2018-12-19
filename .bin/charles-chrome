@@ -2,7 +2,10 @@
 
 set -e
 
-proxy_server="localhost:8888"
+if [ -z "$proxy_server" ]; then
+    proxy_server="localhost:8888"
+fi
+echo "Using proxy $proxy_server"
 
 echo_error() {
     echo $@ >&2
