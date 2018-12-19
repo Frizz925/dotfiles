@@ -11,6 +11,12 @@ OUTPUT_MODULE = 'i3-lemonbar-output'
 # The lemonbar subprocess
 LEMONBAR = None
 TRAP_SIGNALS = signal.SIGHUP | signal.SIGINT | signal.SIGKILL | signal.SIGTERM
+SCALE_FACTOR_ENVS = [
+    'GLOBAL_SCALE_FACTOR',
+    'GDK_SCALE',
+    'QT_SCALE_FACTOR',
+    'WINIT_HIDPI_FACTOR',
+]
 
 
 def handle_signal():
@@ -18,10 +24,17 @@ def handle_signal():
         LEMONBAR.kill()
 
 
+def get_scale_factor(default=1.0):
+    for key in SCALE_FACTOR_ENVS:
+        if key in os.environ:
+            return os.environ[key]
+    return default
+
+
 def main():
     global LEMONBAR
     config = __import__(CONFIG_MODULE)
-    scale = float(os.environ.get('WINIT_HIDPI_FACTOR', 1.0))
+    scale = float(get_scale_factor())
 
     bar_height = round(config.BAR_HEIGHT * scale)
     underline_height = round(config.UNDERLINE_HEIGHT * scale)
