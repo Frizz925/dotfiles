@@ -7,7 +7,7 @@ check_cmd() {
 alias cp="cp -i"
 alias mv="mv -i"
 # Sudo env hack
-alias sudo="nocorrect sudo"
+alias sudo="sudo "
 
 if check_cmd trash; then
     alias rm="trash"
