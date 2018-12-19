@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 proxy_server="localhost:8888"
 
 echo_error() {
@@ -11,9 +13,10 @@ case $os in
     "Darwin")
         chrome_exec="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
         profile_hash=$(date +%s | md5)
+        exists = [ -f $chrome_exec ]
         ;;
     "Linux")
-        chrome_exec="google-chrome"
+        chrome_exec=$(command -v google-chrome)
         profile_hash=$(date +%s | md5sum | awk '{ print $1 }')
         ;;
     *)
@@ -21,7 +24,10 @@ case $os in
         exit 1
 esac
 
-if [ ! -e "$chrome_exec" ]; then
+if [ -z "$chrome_exec" ]; then
+    echo_error "No executable Google Chrome found"
+    exit 1
+elif [ ! -e "$chrome_exec" ]; then
     echo_error "$chrome_exec doesn't exist"
     exit 1
 elif [ ! -x "$chrome_exec" ]; then
