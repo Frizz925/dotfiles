@@ -51,7 +51,7 @@ class i3Wrapper(object):
         return i3
 
     def init_i3_thread(self, i3: i3ipc.Connection):
-        thread = Thread(target=i3.main)
+        thread = Thread(target=i3.main, name='i3 IPC Thread')
         thread.daemon = True
         thread.start()
         return thread
