@@ -1,8 +1,9 @@
 
 call plug#begin('~/.vim/plugged')
 "Look and feel
-Plug 'rakr/vim-one'
-Plug 'arcticicestudio/nord-vim'
+"Plug 'rakr/vim-one'
+"Plug 'arcticicestudio/nord-vim'
+Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -29,13 +30,15 @@ set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 set autoindent
-set background=light
+set background=dark
 set listchars=nbsp:¬,tab:>-,extends:»,precedes:«,space:•,trail:•
 set modeline
 set modelines=5
+set termguicolors
 "set list
 
-let g:airline_theme = 'one'
+let base16colorspace=256
+let g:airline_theme = 'base16'
 let g:one_allow_italics = 1
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
@@ -47,10 +50,10 @@ let g:deoplete#ignore_sources.php = ['omni']
 filetype off
 filetype plugin indent on
 syntax on
-colorscheme one
+colorscheme base16-material-darker
 
 call neomake#configure#automake('nw', 750)
-call one#highlight('Normal', '', 'ffffff', '')
+"call one#highlight('Normal', '', 'ffffff', '')
 
 "Autocmds
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
