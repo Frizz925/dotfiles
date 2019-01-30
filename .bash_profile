@@ -1,4 +1,7 @@
 #!/bin/bash
+if [ -f $HOME/.bash_aliases ]; then
+    source $HOME/.bash_aliases
+fi
 if [ $(uname -s) = 'Darwin' ]; then
     export IS_OSX=1
 fi
@@ -27,6 +30,7 @@ export PATH=$ORIGINAL_PATH
 # macOS specific
 if [ -n "$IS_OSX" ]; then
     export PATH=/usr/local/opt/openssl/bin:$PATH
+    export PATH=/usr/local/opt/curl/bin:$PATH
     export PATH=/usr/local/opt/grep/libexec/gnubin:$PATH
 fi
 # Android stuff
@@ -46,6 +50,7 @@ export PATH=$HOME/.composer/vendor/bin:$PATH
 export PATH=$HOME/.bin:$PATH
 # macOS specific
 if [ -n "$IS_OSX" ]; then
+    export PATH=$HOME/Library/Python/2.7/bin:$PATH
     export PATH=$HOME/Library/Python/3.7/bin:$PATH
 fi
 
