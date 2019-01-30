@@ -1,6 +1,8 @@
 #!/bin/bash
 
-proxy_server="localhost:8888"
+if [ -z "$proxy_server" ]; then
+    proxy_server="localhost:8888"
+fi
 
 echo_error() {
     echo $@ >&2
