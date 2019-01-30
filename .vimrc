@@ -22,6 +22,7 @@ Plug 'neomake/neomake'
 call plug#end()
 
 set nocompatible
+set number
 set relativenumber
 set smartcase
 set smarttab
