@@ -2,6 +2,9 @@
 if [ -f $HOME/.bash_aliases ]; then
     source $HOME/.bash_aliases
 fi
+if [ -f $HOME/.bash_functions ]; then
+    source $HOME/.bash_functions
+fi
 if [ $(uname -s) = 'Darwin' ]; then
     export IS_OSX=1
 fi
