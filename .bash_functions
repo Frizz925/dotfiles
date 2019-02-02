@@ -11,7 +11,10 @@ function gi() {
 function dc() {
     if [ -z "$1" ]; then
         _error "Shorthand function for managing Docker containers"
-        _error "Usage: dc clear <...args>"
+        _error
+        _error "Usage: dc COMMAND [ARGS]"
+        _error "Commands:"
+        _error "  clear     Clear all containers"
         return 1
     fi
     ARG="$1"
@@ -26,4 +29,27 @@ function dc() {
             docker rm ${@} "$CONTAINERS"
             ;;
     esac 
+}
+
+function di() {
+    if [ -z "$1" ]; then
+        _error "Shorthand function for managing Docker images"
+        _error
+        _error "Usage: di COMMAND [ARGS]"
+        _error "Commands:"
+        _error "  clear     Clear all images"
+        return 1
+    fi
+    ARG="$1"
+    shift
+    case "$ARG" in
+        clear)
+            IMAGES=$(docker images -aqf "dangling=true")
+            if [ -z "$IMAGES" ]; then
+                _error "No images to remove"
+                return 1
+            fi
+            docker rmi ${@} "$IMAGES"
+            ;;
+    esac
 }
