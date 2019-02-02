@@ -21,12 +21,9 @@ function dc() {
     shift
     case "$ARG" in
         clear)
-            CONTAINERS=$(docker ps -aq)
-            if [ -z "$CONTAINERS" ]; then
-                _error "No containers to remove"
-                return 1
-            fi
-            docker rm ${@} "$CONTAINERS"
+            for c in $(docker ps -aq); do
+                docker rm ${@} $c
+            done
             ;;
     esac 
 }
@@ -44,12 +41,9 @@ function di() {
     shift
     case "$ARG" in
         clear)
-            IMAGES=$(docker images -aqf "dangling=true")
-            if [ -z "$IMAGES" ]; then
-                _error "No images to remove"
-                return 1
-            fi
-            docker rmi ${@} "$IMAGES"
+            for i in $(docker images -aqf "dangling=true"); do
+                docker rmi ${@} $i
+            done
             ;;
     esac
 }
