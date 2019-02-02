@@ -6,6 +6,9 @@ check_command() {
 if [ -f $HOME/.bash_profile ]; then
     source $HOME/.bash_profile
 fi
+if [ -f $HOME/.vg.zsh ]; then
+    source $HOME/.vg.zsh
+fi
 export ZSH=$HOME/.oh-my-zsh
 
 if [[ -n $SSH_CONNECTION ]]; then
