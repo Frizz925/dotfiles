@@ -6,6 +6,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'mattn/emmet-vim'
 
 "Autocompletions
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
