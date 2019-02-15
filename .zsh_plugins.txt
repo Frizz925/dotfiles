@@ -7,10 +7,11 @@ robbyrussell/oh-my-zsh path:plugins/git kind:fpath
 #robbyrussell/oh-my-zsh path:plugins/heroku kind:fpath
 robbyrussell/oh-my-zsh path:plugins/pip kind:fpath
 robbyrussell/oh-my-zsh path:plugins/docker kind:fpath
-robbyrussell/oh-my-zsh path:plugins/composer kind:fpath
+#robbyrussell/oh-my-zsh path:plugins/composer kind:fpath
 robbyrussell/oh-my-zsh path:plugins/virtualenv  kind:fpath
-robbyrussell/oh-my-zsh path:plugins/node kind:fpath
-robbyrussell/oh-my-zsh path:plugins/npm kind:fpath
-robbyrussell/oh-my-zsh path:plugins/yarn kind:fpath
+#robbyrussell/oh-my-zsh path:plugins/node kind:fpath
+#robbyrussell/oh-my-zsh path:plugins/npm kind:fpath
+#robbyrussell/oh-my-zsh path:plugins/yarn kind:fpath
 robbyrussell/oh-my-zsh path:plugins/vagrant kind:fpath
 robbyrussell/oh-my-zsh path:plugins/terraform kind:fpath
+robbyrussell/oh-my-zsh path:plugins/doctl kind:fpath
