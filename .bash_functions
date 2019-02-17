@@ -5,16 +5,16 @@ gi() {
 }
 
 dotenv() {
-    if [ -z "$1" ]; then
-        echo "File argument required." >&2
-        return 1
+    FILENAME="$1"
+    if [ -z "$FILENAME" ]; then
+        FILENAME=".env"
     fi
-    if [ ! -f "$1" ]; then
-        echo "File '$1' not found." >&2
+    if [ ! -f "$FILENAME" ]; then
+        echo "File '$FILENAME' not found." >&2
         return 1
     fi
     IFS=$'\n'
-    for e in $(cat "$1"); do
+    for e in $(cat "$FILENAME"); do
         export $(printf $e | xargs)
     done
 }
