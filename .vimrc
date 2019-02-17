@@ -1,0 +1,11 @@
+set nocompatible
+set number
+set relativenumber
+set softtabstop=4
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+set modeline
+set laststatus=2
