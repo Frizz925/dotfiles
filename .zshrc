@@ -26,3 +26,5 @@ elif [ -f ~/.zsh_plugins.txt ]; then
 fi
 
 # vim: sts=2 ts=2 sw=2
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
