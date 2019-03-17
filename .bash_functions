@@ -4,6 +4,7 @@ gi() {
     curl -sLw n https://www.gitignore.io/api/$@
 }
 
+DOTENV_BIN=$(which dotenv)
 dotenv() {
     FILENAME="$1"
     if [ -z "$FILENAME" ]; then
@@ -14,7 +15,7 @@ dotenv() {
         return 1
     fi
     IFS=$'\n'
-    for e in $(cat "$FILENAME"); do
-        export $(printf $e | xargs)
+    for e in $($DOTENV_BIN -f "$FILENAME" list); do
+        export "$e"
     done
 }
